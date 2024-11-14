@@ -5,11 +5,21 @@ import Point from "../src/Point";
 describe("test Point", () => {
 
   it("test default constructor", () => {
-      const p = new Point();
-      expect(p.getCoordinate()).to.equal(undefined);
-      expect(p.getType()).to.equal("Point");
-      expect(Number.isNaN(p.x()));
-      expect(Number.isNaN(p.y()));
+
+    const p = new Point();
+    const coord = p.getCoordinate();
+
+    expect(Number.isNaN(coord[0])).to.be.true;
+    expect(Number.isNaN(coord[1])).to.be.true;
+    
+    expect(p.getType()).to.equal("Point");
+    
+    expect(Number.isNaN(p.x())).to.be.true;
+    expect(Number.isNaN(p.y())).to.be.true;
+
+    expect(p.isEmpty()).to.be.true;
+
+   
   });
 
   it("test constructor with coordinates", () => {
@@ -17,6 +27,7 @@ describe("test Point", () => {
       expect(p.getCoordinate()).to.deep.equal([3.0,4.0]);
       expect(p.x()).to.equal(3.0);
       expect(p.y()).to.equal(4.0);
+      expect(p.isEmpty()).to.be.false;
   });
     
 });
