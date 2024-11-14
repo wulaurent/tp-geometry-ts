@@ -2,6 +2,7 @@ import "mocha";
 import { expect } from "chai";
 import LineString from "../src/LineString";
 import Point from "../src/Point";
+import GeometryVisitor from "../src/GeometryVisitor";
 
 describe("LineString", () => {
 
@@ -88,5 +89,22 @@ describe("LineString", () => {
       expect(envelope.isEmpty()).to.be.true;
     });
   });
+
+  describe("visitLineString()", () => {
+    it('should call visitLineString when accepting a LineString', () => {
+    const p1 = new Point([1.0, 2.0]);
+    const p2 = new Point([3.0, 4.0]);
+    const lineString = new LineString([p1, p2]);
+
+    const visitorMock: GeometryVisitor = {
+      visitPoint: () => {},
+      visitLineString: (lineString: LineString) => {
+        expect(lineString).to.equal(lineString); 
+      }
+    };
+
+    lineString.accept(visitorMock);
+  });
+  })
 
 });

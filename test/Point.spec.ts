@@ -1,6 +1,7 @@
 import "mocha";
 import { expect } from "chai";
 import Point from "../src/Point";
+import GeometryVisitor from "../src/GeometryVisitor";
 
 describe("Point", () => {
 
@@ -75,6 +76,21 @@ describe("Point", () => {
       const envelope = p.getEnvelope();
 
       expect(envelope.isEmpty()).to.be.true;
+    });
+  });
+
+  describe('visitPoint()', () => {
+    it('should call visitPoint when accepting a Point', () => {
+      const point = new Point([3.0, 4.0]);
+
+      const visitorMock: GeometryVisitor = {
+        visitPoint: (point: Point) => {
+          expect(point).to.equal(point);
+        },
+        visitLineString: () => {}
+      };
+
+      point.accept(visitorMock);
     });
   });
 
