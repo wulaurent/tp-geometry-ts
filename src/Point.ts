@@ -1,5 +1,6 @@
 import Coordinate from "./Coordinate";
 import Geometry from "./Geometry";
+import LineString from "./LineString";
 
 export default class Point implements Geometry{
   private coordinate?: Coordinate;
@@ -14,6 +15,15 @@ export default class Point implements Geometry{
   
   isEmpty(): boolean {
     return isNaN(this.coordinate[0]) && isNaN(this.coordinate[1]);    
+  }
+
+  translate(dx: number, dy: number) {
+    this.coordinate[0] += dx;
+    this.coordinate[1] += dy;
+  }
+
+  clone(): Point {
+     return new Point([...this.coordinate]);
   }
 
   getCoordinate(): Coordinate {
