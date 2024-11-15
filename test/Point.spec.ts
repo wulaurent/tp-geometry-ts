@@ -61,6 +61,7 @@ describe("Point", () => {
   });
 
   describe("getEnvelope()", () => {
+
     it("should return an envelope with the same coordinates as the point", () => {
       const p = new Point([3, 7]);
       const envelope = p.getEnvelope();
@@ -80,6 +81,7 @@ describe("Point", () => {
   });
 
   describe('visitPoint()', () => {
+
     it('should call visitPoint when accepting a Point', () => {
       const point = new Point([3.0, 4.0]);
 

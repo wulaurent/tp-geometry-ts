@@ -71,6 +71,7 @@ describe("LineString", () => {
   });
 
   describe("getEnvelope()", () => {
+
     it("should return correct bounding box for all points", () => {
       const points = [new Point([1, 2]), new Point([3, 4]), new Point([5, 6])];
       const line = new LineString(points);
@@ -91,6 +92,7 @@ describe("LineString", () => {
   });
 
   describe("visitLineString()", () => {
+
     it('should call visitLineString when accepting a LineString', () => {
     const p1 = new Point([1.0, 2.0]);
     const p2 = new Point([3.0, 4.0]);
@@ -104,7 +106,6 @@ describe("LineString", () => {
     };
 
     lineString.accept(visitorMock);
-  });
+    });
   })
-
 });

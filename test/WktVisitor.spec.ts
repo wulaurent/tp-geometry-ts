@@ -23,6 +23,7 @@ describe("WktVisitor", () => {
   });
   
   describe("visitLineString()", () => {
+
     it("should have no lineString", () => {
       const linestring = new LineString();
       linestring.accept(visitor);

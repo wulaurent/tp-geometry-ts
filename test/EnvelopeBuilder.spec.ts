@@ -6,6 +6,7 @@ import Coordinate from './../src/Coordinate';
 describe("EnvelopeBuilder", () => {
   
   describe("Default Constructor", () => {
+
     it("should create an empty envelope", () => {
       const builder = new EnvelopeBuilder();
       const envelope = builder.build();
@@ -49,6 +50,7 @@ describe("EnvelopeBuilder", () => {
   });
     
   describe("toString()", () => {
+
     it("should convert envelope to string correctly", () => {
       const builder = new EnvelopeBuilder();
       builder.insert([1, 2]);

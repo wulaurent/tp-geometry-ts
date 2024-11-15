@@ -4,7 +4,9 @@ import LineString from "./../src/LineString";
 import { LogGeometryVisitor } from "./../src/LogGeometryVisitor";
 
 describe("LogGeometryVisitor", () => {
+
   describe("visitPoint()", () => {
+
     it("should log 'Je suis un point vide.' for an empty point", () => {
       const point = new Point();
       const visitor = new LogGeometryVisitor();
