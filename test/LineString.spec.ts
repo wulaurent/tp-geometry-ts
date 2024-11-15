@@ -3,6 +3,7 @@ import { expect } from "chai";
 import LineString from "../src/LineString";
 import Point from "../src/Point";
 import GeometryVisitor from "../src/GeometryVisitor";
+import EnvelopeBuilder from "../src/EnvelopeBuilder";
 
 describe("LineString", () => {
 
@@ -91,21 +92,22 @@ describe("LineString", () => {
     });
   });
 
-  describe("visitLineString()", () => {
+  describe("visitLineString Throw Error", () => {
+   it("should throw an error when encountering an invalid point", () => {
+          // Crée une LineString avec un point invalide
+          const validPoint1 = new Point([1, 2]);
+          const validPoint2 = new Point([3, 4]);
+          const invalidPoint: any = null; // Simule un point invalide
 
-    it('should call visitLineString when accepting a LineString', () => {
-    const p1 = new Point([1.0, 2.0]);
-    const p2 = new Point([3.0, 4.0]);
-    const lineString = new LineString([p1, p2]);
+          const points = [validPoint1, validPoint2, invalidPoint];
+          const lineString = new LineString(points);
 
-    const visitorMock: GeometryVisitor = {
-      visitPoint: () => {},
-      visitLineString: (lineString: LineString) => {
-        expect(lineString).to.equal(lineString); 
-      }
-    };
+          const envelopeBuilder = new EnvelopeBuilder();
 
-    lineString.accept(visitorMock);
-    });
-  })
+          // Teste si une erreur est jetée
+          expect(() => {
+              envelopeBuilder.visitLineString(lineString);
+          }).to.throw("Invalid point at index 3");
+      });
+      });
 });

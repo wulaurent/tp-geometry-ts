@@ -10,7 +10,7 @@ export default class LineString  extends AbstractGeometry {
 
   constructor(points?: Array<Point>) {
     super();
-    this.points = points ? points : [];
+    this.points = points || [];
   }
 
   getType(): string {
@@ -32,15 +32,15 @@ export default class LineString  extends AbstractGeometry {
     return new LineString(clonedPoints);
   }
   
-  getEnvelope(): Envelope {
-    const builder = new EnvelopeBuilder();
-    for (const p of this.points) {
-      builder.insert(p.getCoordinate());
-    }
-    const result = builder.build();
-    return result;
-    
-  }
+  // getEnvelope(): Envelope {
+  //   const builder = new EnvelopeBuilder();
+  //   for (const p of this.points) {
+  //     builder.insert(p.getCoordinate());
+  //   }
+  //   const result = builder.build();
+  //   return result;
+  //   
+  // }
   
   accept(visitor: GeometryVisitor): void {
     visitor.visitLineString(this); 
@@ -50,7 +50,8 @@ export default class LineString  extends AbstractGeometry {
     return this.points.length;
   }
 
-  getPointN(n: number): Point {
+
+getPointN(n: number): Point {
     return this.points[n - 1];
-  }
+}
 }

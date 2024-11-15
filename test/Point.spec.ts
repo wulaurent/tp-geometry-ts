@@ -65,7 +65,7 @@ describe("Point", () => {
     it("should return an envelope with the same coordinates as the point", () => {
       const p = new Point([3, 7]);
       const envelope = p.getEnvelope();
-
+      
       expect(envelope.getXmin()).to.equal(3);
       expect(envelope.getXmax()).to.equal(3);
       expect(envelope.getYmin()).to.equal(7);

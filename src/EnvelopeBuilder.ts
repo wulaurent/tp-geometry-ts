@@ -1,7 +1,10 @@
 import Coordinate from './Coordinate';
 import Envelope from './Envelope';
+import GeometryVisitor from './GeometryVisitor';
+import Point from './Point';
+import LineString from './LineString';
 
-export default class EnvelopeBuilder {
+export default class EnvelopeBuilder implements GeometryVisitor {
   private xVals: number[] = [];
   private yVals: number[] = [];
 
@@ -27,5 +30,21 @@ export default class EnvelopeBuilder {
       return new Envelope([NaN, NaN], [NaN, NaN]);
     }
   }
- }
+
+  visitPoint(point: Point) {
+    this.insert(point.getCoordinate());
+  }
+  
+  
+  visitLineString(lineString: LineString): void {
+      for (let i = 1; i <= lineString.getNumPoints(); i++) {
+          const point = lineString.getPointN(i);
+
+          if (!point || !point.getCoordinate) {
+              throw new Error(`Invalid point at index ${i}`);
+          }
+          this.insert(point.getCoordinate());
+      }
+  }
+}
 

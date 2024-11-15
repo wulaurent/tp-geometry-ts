@@ -31,12 +31,12 @@ export default class Point extends AbstractGeometry{
      return new Point([...this.coordinate]);
   }
 
-  getEnvelope(): Envelope {
-    const builder = new EnvelopeBuilder();
-    builder.insert(this.coordinate);
-    const result = builder.build();
-    return result;
-  }
+  // getEnvelope(): Envelope {
+  //   const builder = new EnvelopeBuilder();
+  //   builder.insert(this.coordinate);
+  //   const result = builder.build();
+  //   return result;
+  // }
   
   accept(visitor: GeometryVisitor): void {
     visitor.visitPoint(this); 
