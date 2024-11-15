@@ -5,7 +5,7 @@ import Coordinate from "../src/Coordinate.ts";
 
 describe("Envelope", () => {
   
-  describe("Constructor", () => {
+  describe("Default Constructor", () => {
     
     it("should create an empty envelope by default", () => {                   
       const env = new Envelope();                                              

@@ -1,12 +1,10 @@
-
-import { expect } from 'chai';
-import Point from './../src/Point';
-import LineString from './../src/LineString';
-import { LogGeometryVisitor } from './../src/LogGeometryVisitor';
+import { expect } from "chai";
+import Point from "./../src/Point";
+import LineString from "./../src/LineString";
+import { LogGeometryVisitor } from "./../src/LogGeometryVisitor";
 
 describe("LogGeometryVisitor", () => {
   describe("visitPoint()", () => {
-
     it("should log 'Je suis un point vide.' for an empty point", () => {
       const point = new Point();
       const visitor = new LogGeometryVisitor();
@@ -21,7 +19,7 @@ describe("LogGeometryVisitor", () => {
 
       expect(consoleOutput).to.equal("Je suis un point vide.");
 
-      console.log = originalLog; 
+      console.log = originalLog;
     });
 
     it("should log coordinates for a non-empty point", () => {
@@ -71,7 +69,9 @@ describe("LogGeometryVisitor", () => {
 
       visitor.visitLineString(lineString);
 
-      expect(consoleOutput).to.equal("Je suis une polyligne définie par 3 point(s)");
+      expect(consoleOutput).to.equal(
+        "Je suis une polyligne définie par 3 point(s)",
+      );
 
       console.log = originalLog;
     });
