@@ -2,6 +2,7 @@ import "mocha";
 import { expect } from "chai";
 import Point from "../src/Point";
 import GeometryWithCachedEnvelope from "../src/GeometryWithCachedEnvelope";
+import GeometryVisitor from "../src/GeometryVisitor";
 
 describe('GeometryWithCachedEnvelope', () => {
 
@@ -51,19 +52,24 @@ describe('GeometryWithCachedEnvelope', () => {
 
   describe("accept()", () => {
 
-    it('should accept a visitor', () => {                                  
-      const mockVisitor = {                                                
-        visitPointCalled: false,                                           
-        visitPoint(point) {                                                
-        this.visitPointCalled = true;                                    
-      },                                                                 
-      visitLineString(lineString) {                                      
-      }                                                                  
-    };                                                                    
-    geometryWithCache.accept(mockVisitor);                                                                  
-    expect(mockVisitor.visitPointCalled).to.be.true;                     
-    });
-  })
+     it('should accept a visitor', () => {                              
+       const point = new Point([3.0, 4.0]);    
+       const geometryWithCache = new GeometryWithCachedEnvelope(point);
+       const mockVisitor = {
+         visitPointCalled: false,
+         visitPoint(p) {
+           this.visitPointCalled = true;
+           expect(p).to.equal(point);
+         },
+         visitLineString() {},
+         visitGeometryCollection() {}
+       };
+       geometryWithCache.accept(mockVisitor);
+       expect(mockVisitor.visitPointCalled).to.be.true;                 
+     });                                                                
+  });
+
+
 });
 
 

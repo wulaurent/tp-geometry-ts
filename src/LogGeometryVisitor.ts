@@ -1,6 +1,7 @@
 import Point from './Point'; 
 import LineString from './LineString';
 import GeometryVisitor from './GeometryVisitor';
+import GeometryCollection from './GeometryCollection';
 
 export class LogGeometryVisitor implements GeometryVisitor {
   private out: Console;
@@ -24,6 +25,15 @@ export class LogGeometryVisitor implements GeometryVisitor {
     } else {
       const numPoints = lineString.getNumPoints();
       this.out.log(`Je suis une polyligne définie par ${numPoints} point(s)`);
+    }
+  }
+
+  visitGeometryCollection(geometryCollection: GeometryCollection): void {
+    if (geometryCollection.isEmpty()) {
+      this.out.log("Je suis une géométrie multiple vide.");
+    } else {
+      const numGeometries = geometryCollection.getNumGeometries();       
+      this.out.log(`Je suis une géométrie multiple contenant ${numGeometries} géométrie(s)`);
     }
   }
 }

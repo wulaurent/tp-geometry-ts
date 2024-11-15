@@ -93,21 +93,19 @@ describe("LineString", () => {
   });
 
   describe("visitLineString Throw Error", () => {
-   it("should throw an error when encountering an invalid point", () => {
-          // Crée une LineString avec un point invalide
-          const validPoint1 = new Point([1, 2]);
-          const validPoint2 = new Point([3, 4]);
-          const invalidPoint: any = null; // Simule un point invalide
+    it("should throw an error when encountering an invalid point", () => {
+      const validPoint1 = new Point([1, 2]);
+      const validPoint2 = new Point([3, 4]);
+      const invalidPoint: any = null;
 
-          const points = [validPoint1, validPoint2, invalidPoint];
-          const lineString = new LineString(points);
+      const points = [validPoint1, validPoint2, invalidPoint];
+      const lineString = new LineString(points);
 
-          const envelopeBuilder = new EnvelopeBuilder();
+      const envelopeBuilder = new EnvelopeBuilder();
 
-          // Teste si une erreur est jetée
-          expect(() => {
-              envelopeBuilder.visitLineString(lineString);
-          }).to.throw("Invalid point at index 3");
-      });
-      });
+      expect(() => {
+          envelopeBuilder.visitLineString(lineString);
+      }).to.throw("Invalid point at index 3");
+    });
+  });
 });

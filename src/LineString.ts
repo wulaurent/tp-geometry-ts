@@ -31,17 +31,7 @@ export default class LineString  extends AbstractGeometry {
     const clonedPoints = this.points.map((point) => point.clone());
     return new LineString(clonedPoints);
   }
-  
-  // getEnvelope(): Envelope {
-  //   const builder = new EnvelopeBuilder();
-  //   for (const p of this.points) {
-  //     builder.insert(p.getCoordinate());
-  //   }
-  //   const result = builder.build();
-  //   return result;
-  //   
-  // }
-  
+   
   accept(visitor: GeometryVisitor): void {
     visitor.visitLineString(this); 
   }
@@ -50,8 +40,7 @@ export default class LineString  extends AbstractGeometry {
     return this.points.length;
   }
 
-
-getPointN(n: number): Point {
+  getPointN(n: number): Point {
     return this.points[n - 1];
-}
+  }
 }

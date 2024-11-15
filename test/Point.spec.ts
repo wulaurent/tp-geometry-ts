@@ -89,11 +89,11 @@ describe("Point", () => {
         visitPoint: (point: Point) => {
           expect(point).to.equal(point);
         },
-        visitLineString: () => {}
+        visitLineString: () => {},
+        visitGeometryCollection:()=> {},
       };
 
       point.accept(visitorMock);
     });
   });
-
 });

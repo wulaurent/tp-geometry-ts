@@ -2,6 +2,7 @@ import { expect } from "chai";
 import Point from "./../src/Point";
 import LineString from "./../src/LineString";
 import { LogGeometryVisitor } from "./../src/LogGeometryVisitor";
+import GeometryCollection from "../src/GeometryCollection";
 
 describe("LogGeometryVisitor", () => {
 
@@ -40,7 +41,9 @@ describe("LogGeometryVisitor", () => {
 
       console.log = originalLog;
     });
+  });
 
+  describe("visitLineString()", () => {
     it("should log 'Je suis une polyligne vide.' for an empty linestring", () => {
       const lineString = new LineString();
       const visitor = new LogGeometryVisitor();
@@ -52,9 +55,7 @@ describe("LogGeometryVisitor", () => {
       };
 
       visitor.visitLineString(lineString);
-
       expect(consoleOutput).to.equal("Je suis une polyligne vide.");
-
       console.log = originalLog;
     });
 
@@ -74,8 +75,40 @@ describe("LogGeometryVisitor", () => {
       expect(consoleOutput).to.equal(
         "Je suis une polyligne définie par 3 point(s)",
       );
-
       console.log = originalLog;
     });
   });
+
+  describe("visitGeometryCollection()", () => {
+    it("should log 'Je suis une géométrie multiple vide.' for an empty geometry collection", () => {
+      const geometryCollection = new GeometryCollection();
+      const visitor = new LogGeometryVisitor();
+      let consoleOutput = "";
+      const originalLog = console.log;
+      console.log = (message) => {
+        consoleOutput = message;
+      };
+
+      visitor.visitGeometryCollection(geometryCollection);
+
+      expect(consoleOutput).to.equal("Je suis une géométrie multiple vide.");
+      console.log = originalLog;
+    });
+
+    it("should log number of geometries for a non-empty geometry collection", () => {
+      const geometries = [new Point(), new LineString()];
+      const geometryCollection = new GeometryCollection(geometries);
+      const visitor = new LogGeometryVisitor();
+      let consoleOutput = "";
+      const originalLog = console.log;
+      console.log = (message) => {
+        consoleOutput = message;
+    };
+    
+    visitor.visitGeometryCollection(geometryCollection);
+    
+    expect(consoleOutput).to.equal("Je suis une géométrie multiple contenant 2 géométrie(s)");
+    console.log = originalLog;
+    });
+   });
 });
